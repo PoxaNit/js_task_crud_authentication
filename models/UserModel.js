@@ -36,14 +36,16 @@ import pool from "../database/database.js";
               password
             ) VALUES (
               ?, ?, ?
-            );
+            ) RETURNING id;
         `;
 
-        await conn.query(stmt, [
+        const result = await conn.query(stmt, [
           name,
           email,
           password
         ]);
+
+        return result[0].id;
 
     }
 
@@ -84,3 +86,5 @@ import pool from "../database/database.js";
     }
 
 }
+
+ export default UserModel;

@@ -74,3 +74,5 @@ import pool from "../database/database.js";
     }
 
 }
+
+ export default LoginModel;
