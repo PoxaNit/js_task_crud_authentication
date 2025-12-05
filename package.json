@@ -1,0 +1,24 @@
+{
+  "name": "task_crud",
+  "version": "1.0.0",
+  "description": "Simple CRUD API with authentication for portfolio.",
+  "homepage": "https://github.com/PoxaNit/js_task_crud_authentication#readme",
+  "bugs": {
+    "url": "https://github.com/PoxaNit/js_task_crud_authentication/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PoxaNit/js_task_crud_authentication.git"
+  },
+  "license": "ISC",
+  "author": "Júlio César",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mariadb": "^3.4.5"
+  }
+}
