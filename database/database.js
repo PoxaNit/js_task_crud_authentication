@@ -1,9 +1,16 @@
 import mariadb from "mariadb";
 import dotenv from "dotenv";
 import process from "process";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
- dotenv.config({path: "../.env"});
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = path.dirname(__filename);
 
+ dotenv.config({
+   path: path.resolve(__dirname, "../.env")
+ });
+console.log(`port: ${process.env.dbport}`)
  const pool = await mariadb.createPool({
    port: process.env.dbport,
    host: process.env.dbhost,
