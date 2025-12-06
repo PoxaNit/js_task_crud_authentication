@@ -1,16 +1,19 @@
 import response from "../helpers/response.js";
 import urlWithNoId from "../helpers/urlWithNoId.js";
+import getEndpointId from "../helpers/getEndpointId.js";
 
  class Router
 {
 
-    static async handle (uri, request body) {
+    static async handle (uri, request_body) {
 
-        const uri_divided = uri.split("/");
+        const endpoint = urlWithNoId(uri);
 
-        const uri_id = uri_divided[uri_divided.length - 1];
+        const uri_id = getEndpointId(uri);
 
-        switch (uri_divided[1]) {
+        switch (endpoint) {
+
+            case
 
         }
 
