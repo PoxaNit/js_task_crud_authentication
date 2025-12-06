@@ -2,6 +2,10 @@
 
 The hashs in this project are hexadecimal format.
 
+To make easier to execute the middlewares, they need
+to have a "handle" method, so it's easier to
+execute a sequence of middlewares.
+
 ---
 
 # APIs Documentation
