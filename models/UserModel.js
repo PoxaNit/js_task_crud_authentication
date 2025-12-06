@@ -3,7 +3,7 @@ import pool from "../database/database.js";
  class UserModel
 {
 
-    function getData (user_id){
+    static async getData (user_id){
 
         const conn = await pool.getConnection();
 
@@ -14,11 +14,13 @@ import pool from "../database/database.js";
 
         const result = await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
         return result[0];
 
     }
 
-    function createUser (dataObject) {
+    static async createUser (dataObject) {
 
         const {
           name,
@@ -45,11 +47,13 @@ import pool from "../database/database.js";
           password
         ]);
 
+        await conn.release();
+
         return result[0].id;
 
     }
 
-    function updateUser (user_id, dataObject) {
+    static async updateUser (user_id, dataObject) {
 
         const fields = Object.entries(dataObject);
 
@@ -70,9 +74,11 @@ import pool from "../database/database.js";
 
         }
 
+        await conn.release();
+
     }
 
-    function deleteUser (user_id) {
+    static async deleteUser (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -82,6 +88,8 @@ import pool from "../database/database.js";
         `;
 
         await conn.query(stmt, [user_id]);
+
+        await conn.release();
 
     }
 

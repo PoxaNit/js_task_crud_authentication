@@ -3,7 +3,7 @@ import pool from "../database/database.js";
  class TaskModel
 {
 
-    function getAll (user_id) {
+    static async getAll (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -14,11 +14,13 @@ import pool from "../database/database.js";
 
         const result = await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
         return result;
 
     }
 
-    function getTask (user_id, task_id) {
+    static async getTask (user_id, task_id) {
 
         const conn = await pool.getConnection();
 
@@ -32,9 +34,13 @@ import pool from "../database/database.js";
           task_id
         ]);
 
+        await conn.release();
+
+        return result[0];
+
     }
 
-    function createTask (user_id, dataObject) {
+    static async createTask (user_id, dataObject) {
 
         const {
           content
@@ -42,23 +48,32 @@ import pool from "../database/database.js";
 
         const conn = await pool.getConnection();
 
-        const stmt = `
+        let stmt = `
             INSERT INTO tasks (
               content,
               user_id
             ) VALUES (?, ?);
         `;
 
-        const result = await conn.query(stmt, [
+        let result = await conn.query(stmt, [
           content,
           user_id
         ]);
+
+        stmt = `
+            SELECT * FROM tasks
+            WHERE user_id = ?;
+        `;
+
+        result = await conn.query(stmt, [user_id]);
+
+        await conn.release();
 
         return result;
 
     }
 
-    function updateTask (task_id, dataObject) {
+    static async updateTask (task_id, dataObject) {
 
         const {
           content
@@ -66,22 +81,31 @@ import pool from "../database/database.js";
 
         const conn = await pool.getConnection();
 
-        const stmt = `
+        let stmt = `
             UPDATE tasks
             SET content = ?
             WHERE id = ?;
         `;
 
-        const result = await conn.query(stmt, [
+        let result = await conn.query(stmt, [
           content,
           task_id
         ]);
 
-        return result;
+        stmt = `
+            SELECT * FROM tasks
+            WHERE id = ?;
+        `;
+
+        result = await conn.query(stmt, [user_id]);
+
+        await conn.release();
+
+        return result[0];
 
     }
 
-    function deleteTask (task_id) {
+    static async deleteTask (task_id) {
 
         const conn = await pool.getConnection();
 
@@ -92,9 +116,11 @@ import pool from "../database/database.js";
 
         await conn.query(stmt, [task_id]);
 
+        await conn.release();
+
     }
 
-    function deleteAll (user_id) {
+    static async deleteAll (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -104,6 +130,8 @@ import pool from "../database/database.js";
         `;
 
         await conn.query(stmt, [user_id]);
+
+        await conn.release();
 
     }
 

@@ -3,7 +3,7 @@ import pool from "../database/database.js";
  class LoginModel
 {
 
-    function checkUserLogin (user_id) {
+    static async checkUserLogin (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -14,11 +14,13 @@ import pool from "../database/database.js";
 
         const result = await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
         return result[0].isLogged;
 
     }
 
-    function loginUser (user_id) {
+    static async loginUser (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -30,9 +32,11 @@ import pool from "../database/database.js";
 
         await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
     }
 
-    function logoutUser (user_id) {
+    static async logoutUser (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -44,9 +48,11 @@ import pool from "../database/database.js";
 
         await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
     }
 
-    function createLogin (user_id) {
+    static async createLogin (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -58,9 +64,11 @@ import pool from "../database/database.js";
 
         await conn.query(stmt, [user_id]);
 
+        await conn.release();
+
     }
 
-    function deleteLogin (user_id) {
+    static async deleteLogin (user_id) {
 
         const conn = await pool.getConnection();
 
@@ -70,6 +78,8 @@ import pool from "../database/database.js";
         `;
 
         await conn.query(stmt, [user_id]);
+
+        await conn.release();
 
     }
 

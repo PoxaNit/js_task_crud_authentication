@@ -7,7 +7,7 @@
        success,
        data,
        code
-     } = response;
+     } = obj;
 
      return {
        message: message,
